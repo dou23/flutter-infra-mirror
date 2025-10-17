@@ -5,37 +5,10 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"net/http/httputil"
-	"net/url"
 	"os"
 	"path/filepath"
 )
 
-// ProxyHandler handles incoming requests and serves as a mirror
-func ProxyHandler(w http.ResponseWriter, r *http.Request) {
-	// Target URL to proxy requests to
-	// targetURL := "https://storage.flutter-io.cn/flutter_infra_release"
-	targetURL := "https://storage.flutter-io.cn"
-
-	// Parse the target URL
-	target, err := url.Parse(targetURL)
-	if err != nil {
-		http.Error(w, "Invalid target URL", http.StatusInternalServerError)
-		return
-	}
-
-	// Create reverse proxy
-	proxy := httputil.NewSingleHostReverseProxy(target)
-
-	// Modify the request to forward to the target
-	r.Host = target.Host
-
-	// Log the request
-	log.Printf("Proxying request: %s %s", r.Method, r.URL.Path)
-
-	// Serve the request using reverse proxy
-	proxy.ServeHTTP(w, r)
-}
 
 // AdvancedMirrorHandler with local caching capability
 func AdvancedMirrorHandler(w http.ResponseWriter, r *http.Request) {
