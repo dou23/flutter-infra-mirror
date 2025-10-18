@@ -1,21 +1,17 @@
-package cmd
+package main
 
 import (
 	"flag"
 	"flutter-mirror/internal/config"
-	"flutter-mirror/internal/serve"
 )
 
-func main() {
-
+func parseConf() config.Config {
 	// 定义镜像服务配置
 	conf := config.Config{}
 
 	// 获取命令行参数
-	flag.StringVar(&conf.Port, "port", "", "Port for the mirror server")
-	if conf.Port == "" || len(conf.Port) == 0 {
-		flag.StringVar(&conf.Port, "p", ":8050", "Port for the mirror server")
-	}
+	flag.IntVar(&conf.Port, "port", 8050, "Port for the mirror server")
+	flag.StringVar(&conf.IP, "ip", "0.0.0.0", "IP address for the mirror server")
 
 	flag.StringVar(&conf.CacheRootPath, "cache", "", "Root path for cache storage")
 
@@ -24,6 +20,5 @@ func main() {
 
 	// 设置全局配置
 	config.SetConfig(conf)
-
-	serve.NewServer().Start(conf.Port)
+	return conf
 }
