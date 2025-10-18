@@ -1,2 +1,8 @@
 # Ignore cache directory
 cache/
+*.yml
+*.csv
+*.exe
+.env
+default.env
+go.sum

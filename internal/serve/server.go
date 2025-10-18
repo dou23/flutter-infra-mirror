@@ -8,24 +8,24 @@ import (
 )
 
 type Server interface {
-	Start(port string) error
+	Start(addr string) error
 }
 
 type ProxyServer struct {
 }
 
 func NewServer() Server {
-		// Register handlers
+	// Register handlers
 	http.HandleFunc("/", proxy.AdvancedMirrorHandler)
 	return &ProxyServer{}
 }
 
-func (s *ProxyServer) Start(port string) error {
+func (s *ProxyServer) Start(addr string) error {
 	// Start server
-	fmt.Printf("Starting mirror server on port %s\n", port)
-	fmt.Printf("Access mirrored content via: http://localhost%s/[path-to-resource]\n", port)
+	fmt.Printf("Starting mirror server on port %s\n", addr)
+	fmt.Printf("Access mirrored content via: http://%s/[path-to-resource]\n", addr)
 	// https://storage.flutter-io.cn
-	err := http.ListenAndServe(port, nil)
+	err := http.ListenAndServe(addr, nil)
 	log.Fatal(err)
 	return err
 }
