@@ -6,3 +6,4 @@ cache/
 .env
 default.env
 go.sum
+bin/
