@@ -1,7 +1,6 @@
 package proxy
 
 import (
-	"encoding/json"
 	"flutter-mirror/internal/config"
 	"fmt"
 	"io"
@@ -307,11 +306,11 @@ func waitForDownload(filePath string) {
 		downloadingMutex.RLock()
 		isDownloading := downloadingFiles[filePath]
 		downloadingMutex.RUnlock()
-		
+
 		if !isDownloading {
 			break
 		}
-		
+
 		// 等待100ms
 		// time.Sleep(100 * time.Millisecond)
 	}
